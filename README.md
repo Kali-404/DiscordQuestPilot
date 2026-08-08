@@ -1,227 +1,46 @@
-# DiscordQuestPilot
+## Como utilizar
 
-Uma versão aprimorada do **DiscordQuestPilot**, com foco em estabilidade, controle de execução, tratamento de erros e encerramento seguro.
+O **DiscordQuestPilot** foi desenvolvido para ser executado diretamente pelo console de desenvolvedor do cliente Discord.
 
-## Autor
+> [!NOTE]
+> O funcionamento depende de módulos internos do Discord. A interface e os nomes das opções do DevTools podem variar conforme a versão do cliente.
 
-**DiscordQuestPilot** foi criado por **Kali404**.
+### 1. Abra o Discord
 
-Se você redistribuir, modificar ou utilizar este projeto como base para outra versão, mantenha os créditos ao autor original.
+Inicie o cliente Discord normalmente e entre na conta que possui as Quests que você deseja acompanhar.
 
-> [!IMPORTANT]
-> Este projeto não é afiliado, patrocinado ou endossado pela Discord Inc.
->
-> O projeto utiliza funcionalidades internas do cliente Discord. Atualizações do Discord podem alterar essas funcionalidades e afetar sua compatibilidade.
+Antes de executar o script, verifique se a Quest desejada já está disponível/aceita na sua conta.
 
----
+### 2. Abra as ferramentas de desenvolvedor
 
-## Sobre o projeto
-
-O **DiscordQuestPilot** identifica Quests compatíveis disponíveis na conta e gerencia seu processamento.
-
-### Tipos de Quest reconhecidos
-
-* `WATCH_VIDEO`
-* `WATCH_VIDEO_ON_MOBILE`
-* `PLAY_ON_DESKTOP`
-* `STREAM_ON_DESKTOP`
-* `PLAY_ACTIVITY`
-
----
-
-# Controles
-
-Esta versão possui atalhos de teclado para controlar rapidamente a execução.
-
-| Tecla | Ação                                           |
-| ----- | ---------------------------------------------- |
-| **P** | Para a execução e realiza o cleanup            |
-| **S** | Reinicia o processamento e recarrega as Quests |
-
-Os atalhos são ignorados enquanto o usuário estiver digitando em campos de texto do Discord.
-
-Isso evita que escrever uma mensagem contendo as letras **P** ou **S** acione o script acidentalmente.
-
----
-
-## Comandos pelo console
-
-Os controles tradicionais também continuam disponíveis.
-
-### Parar
-
-```js
-pararMissao()
-```
-
-### Reiniciar
-
-```js
-reiniciarMissao()
-```
-
----
-
-# Melhorias desta versão
-
-## Proteção contra execução duplicada
-
-O DiscordQuestPilot agora verifica se já existe uma instância inicializada.
-
-Isso ajuda a evitar:
-
-* listeners duplicados;
-* múltiplos processamentos simultâneos;
-* referências originais sobrescritas;
-* problemas durante o cleanup;
-* comportamento inconsistente após executar o script mais de uma vez.
-
----
-
-## `pararMissao()` aprimorado
-
-A função:
-
-```js
-pararMissao()
-```
-
-recebeu um processo de cleanup mais completo.
-
-Ao parar, o script:
-
-* interrompe a execução atual;
-* invalida callbacks pertencentes à sessão anterior;
-* remove listeners ativos;
-* limpa estados temporários;
-* restaura funções modificadas;
-* limpa referências internas;
-* impede que operações antigas continuem depois da parada.
-
-Também é possível chamar `pararMissao()` novamente sem causar erro.
-
----
-
-## Reinício com `reiniciarMissao()`
-
-Foi adicionada a função:
-
-```js
-reiniciarMissao()
-```
-
-Ela também pode ser acionada pressionando:
+Abra o **DevTools** do cliente Discord e acesse a aba:
 
 ```text
-S
+Console
 ```
 
-Ao reiniciar, o DiscordQuestPilot:
+> [!WARNING]
+> Nunca execute códigos de origem desconhecida no console. Revise o conteúdo do script antes de executá-lo e utilize somente uma cópia obtida de uma fonte em que você confia.
 
-1. limpa estados anteriores;
-2. recarrega a lista de Quests;
-3. cria uma nova sessão;
-4. verifica as Quests pendentes;
-5. inicia novamente o processamento.
+### 3. Copie o script
 
----
-
-## Sistema de sessão
-
-Cada execução recebe um identificador interno chamado `runId`.
-
-Quando o script é parado, o identificador é alterado.
-
-Com isso, callbacks pertencentes a uma execução anterior podem verificar se ainda pertencem à sessão atual antes de continuar.
-
-Esse mecanismo melhora bastante o comportamento do script quando o usuário executa:
+Abra o arquivo:
 
 ```text
-P
+DiscordQuestPilot_Final.js
 ```
 
-e logo depois:
+Selecione todo o conteúdo e copie.
+
+### 4. Execute no console
+
+Cole o conteúdo no console do Discord e pressione:
 
 ```text
-S
+Enter
 ```
 
----
-
-## Atalhos protegidos durante digitação
-
-Os atalhos não são executados quando o foco está em:
-
-* `input`;
-* `textarea`;
-* elementos editáveis do Discord.
-
-Isso evita paradas ou reinicializações acidentais durante conversas.
-
----
-
-## Cleanup melhorado
-
-O cleanup foi centralizado para restaurar o estado do cliente de maneira mais previsível.
-
-O script tenta limpar individualmente cada estado temporário.
-
-Caso uma etapa apresente erro, as outras ainda são executadas.
-
----
-
-## Gerenciamento de listeners
-
-Listeners registrados durante a execução são armazenados para permitir sua remoção posteriormente.
-
-A referência é limpa mesmo se ocorrer algum erro durante a operação de unsubscribe.
-
----
-
-## Melhor tratamento de erros
-
-As operações assíncronas passam a verificar o estado da sessão antes de continuar.
-
-Isso reduz situações em que uma execução antiga continua depois de:
-
-* uma parada manual;
-* uma reinicialização;
-* um erro;
-* uma nova sessão.
-
----
-
-## Função auxiliar `sleep()`
-
-Os delays foram centralizados através de:
-
-```js
-const sleep = ms =>
-    new Promise(resolve => setTimeout(resolve, ms));
-```
-
-Isso reduz repetição e melhora a legibilidade.
-
----
-
-## Validação das Quests
-
-A validação foi reorganizada para verificar corretamente:
-
-* existência da configuração;
-* inscrição na Quest;
-* estado de conclusão;
-* data de expiração;
-* configuração da tarefa;
-* tipo de tarefa compatível.
-
-Isso deixa o código mais tolerante a estruturas inesperadas.
-
----
-
-# Interface no console
-
-Ao iniciar, o script exibe:
+Quando a inicialização ocorrer corretamente, será exibido algo semelhante a:
 
 ```text
 ╔══════════════════════════════════════╗
@@ -232,123 +51,149 @@ Ao iniciar, o script exibe:
 [P] Parar missão | [S] Reiniciar missão
 ```
 
----
-
-# Compatibilidade
-
-DiscordQuestPilot depende de funcionalidades internas relacionadas a:
-
-* Quests;
-* jogos em execução;
-* streaming;
-* canais;
-* Flux Dispatcher;
-* módulos webpack;
-* API interna do cliente.
-
-Essas funcionalidades não constituem uma API pública estável.
-
-Atualizações do Discord podem modificar:
-
-* nomes de módulos;
-* propriedades internas;
-* estruturas de objetos;
-* eventos;
-* endpoints;
-* comportamento do cliente.
-
-Quando isso acontecer, uma atualização do DiscordQuestPilot pode ser necessária.
+O script verificará as Quests compatíveis e pendentes disponíveis.
 
 ---
 
-# Changelog
+## Controles
 
-## DiscordQuestPilot — versão aprimorada
+Depois de iniciado, o DiscordQuestPilot possui dois atalhos principais:
 
-### Adicionado
+| Tecla | Função                                                     |
+| ----- | ---------------------------------------------------------- |
+| **P** | Para a execução atual e realiza o cleanup                  |
+| **S** | Reinicia o script e verifica novamente as Quests pendentes |
 
-* identificação do criador **Kali404**;
-* banner no console;
-* atalho **P** para parar;
-* atalho **S** para reiniciar;
-* função `reiniciarMissao()`;
-* proteção durante digitação;
-* identificador de sessão `runId`;
-* proteção contra execução duplicada;
-* gerenciamento centralizado de estado;
-* recarregamento das Quests durante reinício;
-* verificações adicionais em operações assíncronas;
-* função auxiliar `sleep()`.
+### Parar a execução
 
-### Melhorado
-
-* `pararMissao()`;
-* cleanup;
-* gerenciamento de listeners;
-* tratamento de erros;
-* restauração de estado;
-* gerenciamento de execução;
-* reinicialização;
-* validação de Quests;
-* organização geral do código;
-* mensagens exibidas no console.
-
-### Corrigido
-
-* possibilidade de callbacks antigos continuarem depois de um reinício;
-* execução duplicada;
-* listeners permanecendo ativos após interrupção;
-* cleanup incompleto;
-* continuação de determinadas operações depois da parada;
-* comportamento inconsistente ao reiniciar rapidamente.
-
----
-
-# Estrutura de controles
+Pressione:
 
 ```text
-DiscordQuestPilot
-       │
-       ├── P
-       │    │
-       │    └── pararMissao()
-       │           │
-       │           ├── interrompe execução
-       │           ├── invalida sessão
-       │           ├── remove listeners
-       │           ├── limpa estado
-       │           └── restaura funções
-       │
-       └── S
-            │
-            └── reiniciarMissao()
-                    │
-                    ├── limpa estado anterior
-                    ├── recarrega Quests
-                    ├── cria nova sessão
-                    └── reinicia processamento
+P
+```
+
+O DiscordQuestPilot interromperá a execução atual e realizará o processo de cleanup.
+
+Também é possível executar manualmente pelo console:
+
+```js
+pararMissao()
+```
+
+### Reiniciar
+
+Depois de parar, pressione:
+
+```text
+S
+```
+
+O script verificará novamente as Quests disponíveis e iniciará uma nova sessão de processamento.
+
+O mesmo pode ser feito pelo console:
+
+```js
+reiniciarMissao()
+```
+
+> [!TIP]
+> Os atalhos **P** e **S** são ignorados enquanto você estiver digitando em campos de mensagem ou outros elementos editáveis do Discord. Portanto, digitar normalmente no chat não deverá acionar os comandos.
+
+---
+
+## Executando novamente
+
+Não é necessário colar novamente o script apenas para reiniciar uma execução que foi parada com **P**.
+
+Use:
+
+```text
+S
+```
+
+ou:
+
+```js
+reiniciarMissao()
+```
+
+Se você recarregar ou fechar completamente o Discord, o código executado pelo console deixa de existir naquela sessão. Nesse caso, será necessário executar o `DiscordQuestPilot_Final.js` novamente.
+
+---
+
+## Se nenhuma Quest for encontrada
+
+Caso apareça:
+
+```text
+Nenhuma Quest compatível e pendente.
+```
+
+verifique se:
+
+* existe uma Quest disponível na sua conta;
+* a Quest já foi aceita/inscrita;
+* a Quest ainda não foi concluída;
+* a Quest ainda não expirou;
+* o tipo da Quest é reconhecido pela versão atual do DiscordQuestPilot.
+
+Os tipos atualmente reconhecidos são:
+
+```text
+WATCH_VIDEO
+WATCH_VIDEO_ON_MOBILE
+PLAY_ON_DESKTOP
+STREAM_ON_DESKTOP
+PLAY_ACTIVITY
 ```
 
 ---
 
-# Aviso
+## Se o script apresentar erro
 
-Use este projeto por sua própria conta e risco.
+Como o DiscordQuestPilot depende de componentes internos do cliente Discord, uma atualização do Discord pode alterar módulos utilizados pelo projeto.
 
-Você é responsável por verificar e respeitar as regras, termos e políticas aplicáveis ao Discord e ao sistema de Quests.
+Se aparecer uma mensagem como:
 
-Discord é uma marca da Discord Inc.
+```text
+Não foi possível localizar todos os módulos necessários.
+```
 
-Este projeto não possui qualquer vínculo oficial com a Discord Inc.
+a versão atual do Discord pode não ser compatível com aquela versão do script.
+
+Antes de tentar executar novamente:
+
+1. pare qualquer execução anterior;
+2. recarregue o Discord;
+3. verifique se existe uma versão mais recente do DiscordQuestPilot;
+4. consulte a página de **Issues** do repositório para verificar se o problema já foi reportado.
+
+Ao abrir uma nova Issue, inclua a mensagem de erro exibida no console, mas remova tokens, IDs privados ou qualquer outra informação pessoal antes de publicar.
 
 ---
 
-# Créditos
+## Resumo rápido
 
-**Criador e mantenedor:** Kali404
+```text
+1. Abra o Discord
+        ↓
+2. Abra DevTools → Console
+        ↓
+3. Copie DiscordQuestPilot_Final.js
+        ↓
+4. Cole no Console
+        ↓
+5. Pressione Enter
+        ↓
+6. DiscordQuestPilot inicia
 
+P → Parar
+S → Reiniciar
+```
+
+### Importante
+
+Executar scripts no console do Discord envolve código de terceiros e funcionalidades internas do cliente. Leia o código antes de utilizá-lo e esteja ciente de que modificações ou automações podem estar sujeitas aos termos e políticas do Discord.
+
+**Criador:** Kali404
 **Projeto:** DiscordQuestPilot
-
-Obrigado a todos que utilizam, testam, reportam problemas e contribuem para melhorar o projeto.
-
-Se você criar uma versão modificada ou derivada do DiscordQuestPilot, mantenha os créditos ao criador original.
