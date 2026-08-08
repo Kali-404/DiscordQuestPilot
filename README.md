@@ -4,7 +4,7 @@ Uma versão aprimorada do **DiscordQuestPilot**, com foco em estabilidade, contr
 
 ## Autor
 
-**DiscordQuestPilot** foi criado e é mantido por **Kali404**.
+**DiscordQuestPilot** foi criado por **Kali404**.
 
 Se você redistribuir, modificar ou utilizar este projeto como base para outra versão, mantenha os créditos ao autor original.
 
