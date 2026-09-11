@@ -609,7 +609,8 @@ _Conteúdo reservado para futura inclusão._
 
 <br><br>
 
-<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=800&size=18&duration=1900&pause=300&color=8B5CF6&center=true&vCenter=true&width=700&lines=Obrigado+por+visitar+o+projeto+%E2%9C%A6;Kali404+%E2%80%94+feito+no+Brasil+%F0%9F%87%A7%F0%9F%87%B7" alt="Despedida animada" />
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=800&size=18&duration=1900&pause=300&color=8B5CF6&center=true&vCenter=true&width=700&lines=Obrigado+por+visitar+o+projeto+%E2%9C%A6;Kali404+%E2%80%94+feito+no+Brasil+%F0%9F%87%A7%F0%9F%87%B7" alt="Despedida animada" /> <img width="24" height="24" alt="brasil" src="https://github.com/user-attachments/assets/36f8e12c-c8ec-4aca-b7ea-fb0eeba79ba2" />
+
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=160&section=footer&animation=twinkling&color=0:090b13,25:ff00aa,50:8b5cf6,75:00e5ff,100:090b13" alt="Rodapé animado" />
 
