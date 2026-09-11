@@ -54,9 +54,9 @@ const projeto = {
 
 | Painel ativo | Painel finalizado |
 | :--: | :--: |
-| ![Prévia do painel ativo](assets/preview-01.png) | ![Prévia do painel finalizado](assets/preview-02.png) |
+| ![Prévia do painel ativo](assets/preview-01.jpg) | ![Prévia do painel finalizado](assets/preview-02.jpg) |
 
-![Prévia adicional da interface](assets/preview-03.png)
+![Prévia adicional da interface](assets/preview-03.jpg)
 
 </div>
 
