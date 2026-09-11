@@ -67,9 +67,9 @@ DiscordQuestPilot/
 ├── README.md
 ├── LICENSE
 ├── assets/
-│   ├── preview-01.png
-│   ├── preview-02.png
-│   └── preview-03.png
+│   ├── preview-01.jpg
+│   ├── preview-02.jpg
+│   └── preview-real.jpg
 └── src/
     └── DiscordQuestPilot.js
 ```
