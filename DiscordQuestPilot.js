@@ -3,7 +3,7 @@
  * DiscordQuestPilot - v1.3.7 (Community Edition)
  * ==========================================================================
  * 
- * Desenvolvido por: Kali 404
+ * Desenvolvido por: Kali404
  * Descrição: Script de automação avançada para Discord Quests com UI 
  *            flutuante em Glassmorphism injetada no DOM.
  * 
@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 <footer class="panel-footer">
-                    <span>Criado por <span class="credit-name">Kali 404</span></span>
+                    <span>Criado por <span class="credit-name">Kali404</span></span>
                     <span class="right">Feito no Brasil
                         <svg class="flag-br" viewBox="0 0 720 504" aria-label="Bandeira do Brasil" role="img">
                             <rect width="720" height="504" fill="#009c3b"/>
